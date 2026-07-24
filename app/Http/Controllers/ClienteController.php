@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Turno;
 use Illuminate\View\View;
 
 class ClienteController extends Controller
@@ -10,6 +11,12 @@ class ClienteController extends Controller
     {
         $mascotas = auth()->user()->mascotas;
 
-        return view('cliente.home', compact('mascotas'));
+        $turnos = Turno::whereIn('mascota_id', $mascotas->pluck('id'))
+            ->with('veterinario')
+            ->orderBy('fecha')
+            ->orderBy('hora')
+            ->get();
+
+        return view('cliente.home', compact('mascotas', 'turnos'));
     }
 }

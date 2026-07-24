@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Turno;
+use App\Models\User;
 use Illuminate\View\View;
 
 class SecretarioController extends Controller
@@ -14,6 +15,8 @@ class SecretarioController extends Controller
             ->orderBy('hora')
             ->paginate(10);
 
-        return view('secretario.turnos', compact('turnos'));
+        $veterinarios = User::where('rol', 'veterinario')->get();
+
+        return view('secretario.turnos', compact('turnos', 'veterinarios'));
     }
 }

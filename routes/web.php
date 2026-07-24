@@ -4,6 +4,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecretarioController;
+use App\Http\Controllers\TurnoController;
 use App\Http\Controllers\VeterinarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:cliente'])->prefix('cliente')->name('cliente.')->group(function () {
     Route::get('/', [ClienteController::class, 'home'])->name('home');
+    Route::get('/turno/crear', [TurnoController::class, 'create'])->name('turno.crear');
+    Route::post('/turno', [TurnoController::class, 'store'])->name('turno.store');
 });
 
 Route::middleware(['auth', 'role:encargado'])->prefix('encargado')->name('encargado.')->group(function () {
@@ -37,6 +40,7 @@ Route::middleware(['auth', 'role:encargado'])->prefix('encargado')->name('encarg
 
 Route::middleware(['auth', 'role:secretario'])->prefix('secretario')->name('secretario.')->group(function () {
     Route::get('/turnos', [SecretarioController::class, 'turnos'])->name('turnos');
+    Route::patch('/turnos/{turno}', [TurnoController::class, 'updateEstado'])->name('turnos.update');
 });
 
 Route::middleware(['auth', 'role:veterinario'])->prefix('veterinario')->name('veterinario.')->group(function () {

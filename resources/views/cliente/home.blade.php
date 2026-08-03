@@ -16,8 +16,9 @@
             <h3>Mis mascotas</h3>
             <p>Tenes {{ $mascotas->count() }} mascota(s) registrada(s).</p>
             @foreach ($mascotas as $mascota)
-                <p>- {{ $mascota->nombre }} ({{ $mascota->tipo }})</p>
+                <p>- <a href="{{ route('mascota.show', $mascota) }}">{{ $mascota->nombre }}</a> ({{ $mascota->tipo }})</p>
             @endforeach
+            <a href="{{ route('cliente.mascotas.index') }}" class="btn">Gestionar mascotas</a>
         </article>
         <article class="card">
             <h3>Solicitar turno</h3>

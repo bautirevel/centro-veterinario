@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EncargadoController;
+use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecretarioController;
@@ -27,12 +28,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Ficha de mascota: accesible por cualquier rol logueado, la autorizacion fina
+    // (que un cliente solo vea las suyas) se resuelve dentro del controlador.
+    Route::get('/mascotas/{mascota}', [MascotaController::class, 'show'])->name('mascota.show');
 });
 
 Route::middleware(['auth', 'role:cliente'])->prefix('cliente')->name('cliente.')->group(function () {
     Route::get('/', [ClienteController::class, 'home'])->name('home');
     Route::get('/turno/crear', [TurnoController::class, 'create'])->name('turno.crear');
     Route::post('/turno', [TurnoController::class, 'store'])->name('turno.store');
+
+    Route::get('/mascotas', [MascotaController::class, 'index'])->name('mascotas.index');
+    Route::get('/mascotas/crear', [MascotaController::class, 'create'])->name('mascotas.crear');
+    Route::post('/mascotas', [MascotaController::class, 'store'])->name('mascotas.store');
+    Route::get('/mascotas/{mascota}/editar', [MascotaController::class, 'edit'])->name('mascotas.editar');
+    Route::patch('/mascotas/{mascota}', [MascotaController::class, 'update'])->name('mascotas.update');
+    Route::delete('/mascotas/{mascota}', [MascotaController::class, 'destroy'])->name('mascotas.eliminar');
 });
 
 Route::middleware(['auth', 'role:encargado'])->prefix('encargado')->name('encargado.')->group(function () {

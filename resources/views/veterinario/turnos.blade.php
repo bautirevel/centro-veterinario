@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{ \Carbon\Carbon::parse($turno->fecha)->format('d/m') }}</td>
                         <td>{{ \Carbon\Carbon::parse($turno->hora)->format('H:i') }}</td>
-                        <td>{{ $turno->mascota->nombre }}</td>
+                        <td><a href="{{ route('mascota.show', $turno->mascota) }}">{{ $turno->mascota->nombre }}</a></td>
                         <td>{{ $turno->mascota->dueno->name }}</td>
                         <td>{{ $turno->motivo }}</td>
                         <td><span class="estado {{ $turno->estado }}">{{ ucfirst($turno->estado) }}</span></td>

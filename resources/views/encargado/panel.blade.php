@@ -7,6 +7,7 @@
     <aside class="sidebar">
         <h2>Encargado</h2>
         <a class="activo" href="{{ route('encargado.panel') }}">Panel general</a>
+        <a href="{{ route('encargado.personal.index') }}">Personal</a>
     </aside>
 
     <section class="contenido-panel">

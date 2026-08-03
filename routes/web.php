@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EncargadoController;
+use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecretarioController;
 use App\Http\Controllers\TurnoController;
@@ -36,6 +37,13 @@ Route::middleware(['auth', 'role:cliente'])->prefix('cliente')->name('cliente.')
 
 Route::middleware(['auth', 'role:encargado'])->prefix('encargado')->name('encargado.')->group(function () {
     Route::get('/panel', [EncargadoController::class, 'panel'])->name('panel');
+
+    Route::get('/personal', [PersonalController::class, 'index'])->name('personal.index');
+    Route::get('/personal/crear', [PersonalController::class, 'create'])->name('personal.crear');
+    Route::post('/personal', [PersonalController::class, 'store'])->name('personal.store');
+    Route::get('/personal/{user}/editar', [PersonalController::class, 'edit'])->name('personal.editar');
+    Route::patch('/personal/{user}', [PersonalController::class, 'update'])->name('personal.update');
+    Route::delete('/personal/{user}', [PersonalController::class, 'destroy'])->name('personal.eliminar');
 });
 
 Route::middleware(['auth', 'role:secretario'])->prefix('secretario')->name('secretario.')->group(function () {

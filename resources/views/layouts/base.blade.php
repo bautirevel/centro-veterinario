@@ -10,6 +10,8 @@
     <header>
         <a href="{{ url('/') }}" class="logo">Centro <span>Veterinario</span></a>
         <nav>
+            <a href="{{ url('/') }}">Inicio</a>
+            <a href="{{ route('contacto') }}">Contacto</a>
             @guest
                 <a href="{{ route('login') }}">Ingresar</a>
                 <a href="{{ route('register') }}" class="btn">Registrarse</a>

@@ -5,14 +5,14 @@ use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\SecretarioController;
 use App\Http\Controllers\TurnoController;
 use App\Http\Controllers\VeterinarioController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/contacto', [PublicController::class, 'contacto'])->name('contacto');
 
 Route::get('/dashboard', function () {
     return match (auth()->user()->rol) {
@@ -29,8 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Ficha de mascota: accesible por cualquier rol logueado, la autorizacion fina
-    // (que un cliente solo vea las suyas) se resuelve dentro del controlador.
     Route::get('/mascotas/{mascota}', [MascotaController::class, 'show'])->name('mascota.show');
 });
 

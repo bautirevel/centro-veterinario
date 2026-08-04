@@ -1,4 +1,4 @@
-﻿* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -460,3 +460,12 @@ footer {
     border-radius: 12px;
     margin-top: 10px;
 }
+
+@media (max-width: 850px) {
+    .tabla {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
